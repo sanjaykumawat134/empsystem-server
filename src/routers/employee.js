@@ -84,8 +84,9 @@ empRoutes.get("/additonal_data", auth, async (req, res) => {
   }
 });
 // update employee
-empRoutes.patch("/:id", auth, async (req, res) => {
+empRoutes.put("/edit", auth, async (req, res) => {
   try {
+    console.log("request fires");
     const {
       firstName,
       lastName,
@@ -104,34 +105,46 @@ empRoutes.patch("/:id", auth, async (req, res) => {
       district,
       zipcode,
     } = req.body.data;
-    const _id = req.params.id;
-    const empDetailID = await Employee.findOne({ _id }).populate("detail_ref")
-      ._id;
-    const updatedDetail = await EmployeeDetail.findByIdAndUpdate(empDetailID, {
-      department,
-      phone: phoneNumber,
-      salary: salary,
-      country,
-      state,
-      district,
-      zip_code: zipcode,
-    });
-    const updatedEmp = await Employee.findByIdAndUpdate(_id, {
-      firstName,
-      lastName,
-      email,
-      dob,
-      phone: phoneNumber,
-      birth_place: birthPlace,
-      join_date: joinDate,
-      gender: gender,
-      maritial_status: maritalStatus,
-      pan_card_no: panCardNumber,
-      created_by: req.user._id,
-      detail_ref: empDetail._id,
-    });
-    console.log("updated", updatedEmp, updatedDetail);
-  } catch (error) {}
+    const _id = req.query["id"];
+
+    const empDetailRef = await Employee.findOne({ _id }).populate("detail_ref");
+
+    const updatedDetail = await EmployeeDetail.findByIdAndUpdate(
+      empDetailRef.detail_ref._id,
+      {
+        department,
+        phone: phoneNumber,
+        salary: salary,
+        country,
+        state,
+        district,
+        zip_code: zipcode,
+      },
+      { new: true }
+    );
+    const updatedEmp = await Employee.findByIdAndUpdate(
+      _id,
+      {
+        firstName,
+        lastName,
+        email,
+        dob,
+        phone: phoneNumber,
+        birth_place: birthPlace,
+        join_date: joinDate,
+        gender: gender,
+        maritial_status: maritalStatus,
+        pan_card_no: panCardNumber,
+        created_by: req.user._id,
+        detail_ref: updatedDetail._id,
+      },
+      { new: true }
+    );
+
+    res.status(202).send(updatedEmp);
+  } catch (error) {
+    console.log("error", error);
+  }
 });
 empRoutes.delete("/:id", auth, async (req, res) => {
   try {
