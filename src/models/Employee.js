@@ -90,8 +90,12 @@ employeeSchema.methods.toJSON = function () {
 };
 employeeSchema.pre("deleteOne", async function (next) {
   const empId = this.getQuery()["_id"];
-
-  await EmployeeDetail.deleteOne({ owner: empId });
+  const empDetailRef = await Employee.findOne({ _id: empId }).populate(
+    "detail_ref"
+  );
+  const resp = await EmployeeDetail.deleteOne({
+    _id: empDetailRef.detail_ref._id,
+  });
 
   next();
 });
