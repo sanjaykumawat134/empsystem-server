@@ -27,7 +27,7 @@ userRoutes.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findUserByCredientials(email, password);
     const token = await user.generateToken();
-    res.status(200).send({ user, token });
+    res.send({ user, token });
   } catch (error) {
     res.status(400).send({ error });
   }
@@ -38,10 +38,17 @@ userRoutes.get("/logout", auth, async (req, res) => {
     const index = req.user.tokens.indexOf(req.token);
     req.user.tokens.splice(index, 1);
     await req.user.save();
-    res.json("Logout successfully").send();
+    res.send("logout sucessfully");
   } catch (error) {
     console.log("error", error);
     res.status(400).send({ error });
+  }
+});
+userRoutes.get("/check_login", auth, (req, res) => {
+  try {
+    res.send(req.user);
+  } catch (error) {
+    res.send(error);
   }
 });
 

@@ -33,19 +33,19 @@ const employeeSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    // phone: {
-    //   type: String,
-    //   required: true,
-    //   trim: true,
-    // },
-    birth_place: {
+    phone: {
       type: String,
       required: true,
       trim: true,
     },
+    birth_place: {
+      type: String,
+
+      trim: true,
+    },
     join_date: {
       type: String,
-      required: true,
+
       trim: true,
     },
 
@@ -56,7 +56,7 @@ const employeeSchema = new mongoose.Schema(
     },
     maritial_status: {
       type: String,
-      required: true,
+
       trim: true,
     },
     pan_card_no: {

@@ -10,11 +10,11 @@ const empDetailSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    phone: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    // phone: {
+    //   type: String,
+    //   required: true,
+    //   trim: true,
+    // },
     salary: {
       type: String,
       required: true,

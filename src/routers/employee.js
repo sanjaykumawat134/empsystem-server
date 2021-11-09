@@ -29,7 +29,7 @@ empRoutes.post("/add", auth, async (req, res) => {
     } = req.body.data;
     const empDetail = await new EmployeeDetail({
       department,
-      phone: phoneNumber,
+
       salary: salary,
       country,
       state,
@@ -113,7 +113,7 @@ empRoutes.put("/edit", auth, async (req, res) => {
       empDetailRef.detail_ref._id,
       {
         department,
-        phone: phoneNumber,
+        // phone: phoneNumber,
         salary: salary,
         country,
         state,
@@ -154,7 +154,6 @@ empRoutes.delete("/:id", auth, async (req, res) => {
     res.status(202).send(deletedEmp);
   } catch (error) {
     res.status(500).send(error);
-    console.log("error", error);
   }
 });
 module.exports = empRoutes;
