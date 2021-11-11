@@ -30,16 +30,16 @@ const empDetailSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    district: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    zip_code: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    // district: {
+    //   type: String,
+    //   required: true,
+    //   trim: true,
+    // },
+    // zip_code: {
+    //   type: String,
+    //   required: true,
+    //   trim: true,
+    // },
     // owner: {
     //   type: mongoose.Types.ObjectId,
     //   required: true,

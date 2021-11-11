@@ -18,7 +18,7 @@ const employeeSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      // unique: true,
+      unique: true,
       required: true,
       trim: true,
       lowercase: true,
@@ -38,32 +38,32 @@ const employeeSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    birth_place: {
-      type: String,
+    // birth_place: {
+    //   type: String,
 
-      trim: true,
-    },
-    join_date: {
-      type: String,
+    //   trim: true,
+    // },
+    // join_date: {
+    //   type: String,
 
-      trim: true,
-    },
+    //   trim: true,
+    // },
 
     gender: {
       type: String,
       required: true,
       trim: true,
     },
-    maritial_status: {
-      type: String,
+    // maritial_status: {
+    //   type: String,
 
-      trim: true,
-    },
-    pan_card_no: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    //   trim: true,
+    // },
+    // pan_card_no: {
+    //   type: String,
+    //   required: true,
+    //   trim: true,
+    // },
     created_by: {
       type: mongoose.Types.ObjectId,
       required: true,
