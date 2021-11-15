@@ -64,13 +64,21 @@ empRoutes.post("/add", auth, async (req, res) => {
 
 empRoutes.get("/all", auth, async (req, res) => {
   try {
-    const employees = await Employee.find({});
+    console.log("skip", req.query.skip);
+
+    const employees = await Employee.find(
+      { is_deleted: false },
+      {},
+      { limit: 2, skip: parseInt(req.query.skip) }
+    );
+    const totalCounts = await Employee.count({ is_deleted: false });
     if (employees == null) {
       return res
         .status(200)
         .send({ error: "No employees found ! please add " });
     }
-    return res.status(200).send(employees);
+    // return res.status(200).send(employees);
+    return res.status(200).send({ employees, totalCounts });
   } catch (error) {
     res.status(500).send({ error });
   }
@@ -153,7 +161,11 @@ empRoutes.put("/edit", auth, async (req, res) => {
 empRoutes.delete("/:id", auth, async (req, res) => {
   try {
     const _id = req.params.id;
-    const deletedEmp = await Employee.deleteOne({ _id });
+    // const deletedEmp = await Employee.deleteOne({ _id });
+    const deletedEmp = await Employee.findByIdAndUpdate(
+      { _id },
+      { is_deleted: true }
+    );
 
     res.status(202).send(deletedEmp);
   } catch (error) {

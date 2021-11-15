@@ -28,8 +28,13 @@ const employeeSchema = new mongoose.Schema(
         }
       },
     },
+    // dob: {
+    //   type: String,
+    //   required: true,
+    //   trim: true,
+    // },
     dob: {
-      type: String,
+      type: Date,
       required: true,
       trim: true,
     },
@@ -73,6 +78,10 @@ const employeeSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       required: true,
       ref: "EmployeeDetail",
+    },
+    is_deleted: {
+      type: Boolean,
+      default: false,
     },
   },
   {
